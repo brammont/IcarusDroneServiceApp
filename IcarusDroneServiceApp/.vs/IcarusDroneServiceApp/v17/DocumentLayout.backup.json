@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|c:\\users\\mazue\\documents\\localddev\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|solutionrelative:icarusdroneserviceapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|c:\\users\\mazue\\documents\\localddev\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdrone.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|solutionrelative:icarusdroneserviceapp\\icarusdrone.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|c:\\users\\mazue\\documents\\localddev\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|solutionrelative:icarusdroneserviceapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|c:\\users\\mazue\\documents\\localddev\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdrone.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|solutionrelative:icarusdroneserviceapp\\icarusdrone.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|c:\\users\\mazue\\documents\\localddev\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp\\models\\drone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|solutionrelative:icarusdroneserviceapp\\models\\drone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|c:\\users\\mazue\\documents\\localddev\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|solutionrelative:icarusdroneserviceapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|c:\\users\\mazue\\documents\\localddev\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|solutionrelative:icarusdroneserviceapp\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|c:\\users\\mazue\\documents\\localddev\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|solutionrelative:icarusdroneserviceapp\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|c:\\users\\mazue\\documents\\localddev\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp\\icarusdroneserviceapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B1E8A16A-C37C-4FE5-B32A-8EF7F2A90B2F}|IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj|solutionrelative:icarusdroneserviceapp\\icarusdroneserviceapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,27 +58,91 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "IcarusDroneServiceApp\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\MainWindow.xaml",
-              "RelativeToolTip": "IcarusDroneServiceApp\\MainWindow.xaml",
+              "DocumentIndex": 6,
+              "Title": "IcarusDroneServiceApp",
+              "DocumentMoniker": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj",
+              "RelativeDocumentMoniker": "IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj",
+              "ToolTip": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj",
+              "RelativeToolTip": "IcarusDroneServiceApp\\IcarusDroneServiceApp.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-24T03:24:26.403Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IcarusDrone.xaml",
+              "DocumentMoniker": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDrone.xaml",
+              "RelativeDocumentMoniker": "IcarusDroneServiceApp\\IcarusDrone.xaml",
+              "ToolTip": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDrone.xaml",
+              "RelativeToolTip": "IcarusDroneServiceApp\\IcarusDrone.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-05-18T04:34:30.915Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "IcarusDroneServiceApp\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\MainWindow.xaml.cs",
-              "RelativeToolTip": "IcarusDroneServiceApp\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "IcarusDrone.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDrone.xaml.cs",
+              "RelativeDocumentMoniker": "IcarusDroneServiceApp\\IcarusDrone.xaml.cs",
+              "ToolTip": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDrone.xaml.cs",
+              "RelativeToolTip": "IcarusDroneServiceApp\\IcarusDrone.xaml.cs",
+              "ViewState": "AgIAAKwAAAAAAAAAAAAAwMMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-18T04:34:28.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Drone.cs",
+              "DocumentMoniker": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\Models\\Drone.cs",
+              "RelativeDocumentMoniker": "IcarusDroneServiceApp\\Models\\Drone.cs",
+              "ToolTip": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\Models\\Drone.cs",
+              "RelativeToolTip": "IcarusDroneServiceApp\\Models\\Drone.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAwDMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T03:25:04.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\App.xaml",
+              "RelativeDocumentMoniker": "IcarusDroneServiceApp\\App.xaml",
+              "ToolTip": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\App.xaml",
+              "RelativeToolTip": "IcarusDroneServiceApp\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-24T03:34:02.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "IcarusDroneServiceApp\\AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\AssemblyInfo.cs",
+              "RelativeToolTip": "IcarusDroneServiceApp\\AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T03:34:26.22Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\App.xaml.cs",
+              "RelativeDocumentMoniker": "IcarusDroneServiceApp\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\mazue\\Documents\\localdDev\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\IcarusDroneServiceApp\\App.xaml.cs",
+              "RelativeToolTip": "IcarusDroneServiceApp\\App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T03:34:29.643Z",
               "EditorCaption": ""
             }
           ]
