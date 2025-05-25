@@ -1,0 +1,72 @@
+IcarusDroneServiceApp Information: 0 : === Application starting ===
+
+*********************************************************************************************************
+WARNING: The component "Extended WPF Toolkit" you are currently using is governed by the Xceed Community License Agreement
+and permits NON-commercial use only. By continuing using this version, you are confirming that this component
+is only being used for a non-commercial purpose. If you are using this component in a commercial application,
+please contact Xceed's sales team by email at sales@xceed.com or visit
+https://xceed.com/en/our-products/product/toolkit-plus-for-wpf to purchase a subscription license.
+*************************************************************************************************************
+
+IcarusDroneServiceApp Information: 0 : [Startup] Main window initialized
+IcarusDroneServiceApp Information: 0 : [Setup] Building ListView columns
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='1', Blocked=False
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='10', Blocked=False
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='100', Blocked=False
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='10.', Blocked=False
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='10.0', Blocked=False
+IcarusDroneServiceApp Information: 0 : [AddNewItem] invoked
+IcarusDroneServiceApp Information: 0 : [AddNewItem] Tag=100
+IcarusDroneServiceApp Information: 0 : [IncrementTag] NextTag=110
+IcarusDroneServiceApp Information: 0 : [AddNewItem] Priority=Regular
+IcarusDroneServiceApp Information: 0 : [AddNewItem] Enqueued. RegularCount=1, ExpressCount=0
+IcarusDroneServiceApp Information: 0 : [ClearForm] Inputs reset
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='2', Blocked=False
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='20', Blocked=False
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='20.', Blocked=False
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='20.0', Blocked=False
+IcarusDroneServiceApp Information: 0 : [AddNewItem] invoked
+IcarusDroneServiceApp Information: 0 : [AddNewItem] Tag=110
+IcarusDroneServiceApp Information: 0 : [IncrementTag] NextTag=120
+IcarusDroneServiceApp Information: 0 : [AddNewItem] Priority=Express
+IcarusDroneServiceApp Information: 0 : [AddNewItem] Surcharge applied → Cost=23.00
+IcarusDroneServiceApp Information: 0 : [AddNewItem] Enqueued. RegularCount=1, ExpressCount=1
+IcarusDroneServiceApp Information: 0 : [ClearForm] Inputs reset
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='B', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='C', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='S', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='S', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='S', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='F', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='F', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='F', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='F', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='S', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3', Blocked=False
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3E', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='3D', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [TxtCost] Input='A', Blocked=True
+IcarusDroneServiceApp Information: 0 : [LvRegular] Selected Tag=100
+IcarusDroneServiceApp Information: 0 : [ProcessReg] Dequeued Tag=100
+IcarusDroneServiceApp Information: 0 : [LvExpress] Selected Tag=110
+IcarusDroneServiceApp Information: 0 : [ProcessExpr] Dequeued Tag=110
+IcarusDroneServiceApp Warning: 0 : [OnRemoveFinished] Removing index=0
