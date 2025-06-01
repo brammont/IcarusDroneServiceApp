@@ -1,0 +1,9 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+bin/
+obj/
+
+# Rider
+.idea/

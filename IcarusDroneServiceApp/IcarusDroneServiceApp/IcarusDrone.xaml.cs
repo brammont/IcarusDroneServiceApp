@@ -11,285 +11,324 @@ using IcarusDroneServiceApp.Models;
 
 namespace IcarusDroneServiceApp
 {
+    /// <summary>
+    /// Interaction logic for IcarusDrone.xaml
+    /// Main window that manages job creation, editing, processing and display.
+    /// </summary>
     public partial class IcarusDrone : Window
     {
-        // ─── Data Structures ─────────────────────────────────────────────────────
+        #region Fields
 
-        /// <summary>
-        /// Queue of regular‐priority Drone jobs         [Programming Criteria]
-        /// </summary>
         private readonly Queue<Drone> RegularService = new();
-
-        /// <summary>
-        /// Queue of express‐priority Drone jobs         [Programming Criteria]
-        /// </summary>
         private readonly Queue<Drone> ExpressService = new();
-
-        /// <summary>
-        /// List of completed Drone jobs                [Programming Criteria]
-        /// </summary>
         private readonly List<Drone> FinishedList = new();
 
-        // ─── Constructor ─────────────────────────────────────────────────────────
+        #endregion
+
+        #region Constructor
 
         /// <summary>
-        /// Initializes components, sets up ListView columns,
-        /// and populates initial queue and finished lists.
-        ///                                             [Programming Criteria]
+        /// Initializes the window, sets up all ListViews and loads initial data.
         /// </summary>
         public IcarusDrone()
         {
             InitializeComponent();
-            Trace.TraceInformation("[Startup] Main window initialized");
-            SetupListViewColumns();
+            Trace.TraceInformation("[Startup] Window initialized");
+
+            SetupQueueColumns();
+            SetupFinishedColumns();
             RefreshQueues();
             RefreshFinished();
+            UpdateProcessButtons();
         }
 
-        // ─── GUI SETUP ────────────────────────────────────────────────────────────
+        #endregion
+
+        #region Setup Columns
 
         /// <summary>
-        /// Builds GridView columns for Regular and Express ListViews.
-        /// Cannot assign Columns property directly, so Add() is used.
-        ///                                             [Programming Criteria]
+        /// Dynamically builds the GridView for Regular & Express queues.
         /// </summary>
-        private void SetupListViewColumns()
+        private void SetupQueueColumns()
         {
-            Trace.TraceInformation("[Setup] Building ListView columns");
-            var columns = new (string header, string path)[]
+            Trace.TraceInformation("[Setup] Building queue columns");
+
+            var cols = new (string Header, string Path)[]
             {
-                ("Tag","ServiceTag"),
-                ("Client","ClientName"),
-                ("Model","DroneModel"),
-                ("Problem","ServiceProblem"),
-                ("Cost","Cost")
+                ("Tag",     "ServiceTag"),
+                ("Client",  "ClientName"),
+                ("Model",   "DroneModel"),
+                ("Problem", "ServiceProblem"),
+                ("Cost",    "Cost")
             };
 
-            // Regular queue columns
             var gvReg = new GridView();
-            foreach (var (h, p) in columns)
-                gvReg.Columns.Add(new GridViewColumn
-                {
-                    Header = h,
-                    DisplayMemberBinding = new Binding(p)
-                });
+            foreach (var (h, p) in cols)
+                gvReg.Columns.Add(new GridViewColumn { Header = h, DisplayMemberBinding = new Binding(p) });
             lvRegular.View = gvReg;
 
-            // Express queue columns
             var gvExpr = new GridView();
-            foreach (var (h, p) in columns)
-                gvExpr.Columns.Add(new GridViewColumn
-                {
-                    Header = h,
-                    DisplayMemberBinding = new Binding(p)
-                });
+            foreach (var (h, p) in cols)
+                gvExpr.Columns.Add(new GridViewColumn { Header = h, DisplayMemberBinding = new Binding(p) });
             lvExpress.View = gvExpr;
         }
 
-        // ─── TEST CASES 1–3: ADD NEW ITEM ────────────────────────────────────────
+        /// <summary>
+        /// Builds the GridView for the Finished‐Jobs ListView.
+        /// </summary>
+        private void SetupFinishedColumns()
+        {
+            Trace.TraceInformation("[Setup] Building finished columns");
+
+            var gvFin = new GridView();
+            gvFin.Columns.Add(new GridViewColumn { Header = "Tag", DisplayMemberBinding = new Binding("ServiceTag") });
+            gvFin.Columns.Add(new GridViewColumn { Header = "Client", DisplayMemberBinding = new Binding("ClientName") });
+            gvFin.Columns.Add(new GridViewColumn { Header = "Cost", DisplayMemberBinding = new Binding("Cost") });
+            gvFin.Columns.Add(new GridViewColumn { Header = "Priority", DisplayMemberBinding = new Binding("Priority") });
+            lvFinished.View = gvFin;
+        }
+
+        #endregion
+
+        #region Add & Update
 
         /// <summary>
-        /// Adds a new Drone job to the appropriate queue.
-        /// TC1: Add Regular Job
-        /// TC2: Add Express Job & surcharge
-        /// TC3: Invalid cost validation
-        ///                                             [Programming Criteria]
+        /// Adds a new job based on form inputs.
         /// </summary>
         private void AddNewItem(object sender, RoutedEventArgs e)
         {
-            Trace.TraceInformation("[AddNewItem] invoked");
+            Trace.TraceInformation("[Add] Invoked");
 
-            // Validate cost: only two decimals, positive
+            // Cost validation
             if (!double.TryParse(txtCost.Text, out double cost) || cost <= 0)
             {
-                Trace.TraceWarning($"[AddNewItem] Invalid cost '{txtCost.Text}'");
-                MessageBox.Show("Enter a valid positive cost (up to two decimals).",
-                                "Invalid Cost", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Trace.TraceWarning($"[Add] Bad cost '{txtCost.Text}'");
+                MessageBox.Show(
+                    "Please enter a valid positive cost (max two decimals).",
+                    "Invalid Cost", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Grab tag and increment for next
+            // Read & validate tag
             int tag = numTag.Value ?? 100;
-            Trace.TraceInformation($"[AddNewItem] Tag={tag}");
+            if (IsTagDuplicate(tag))
+            {
+                Trace.TraceWarning($"[Add] Duplicate tag {tag}");
+                MessageBox.Show(
+                    $"Tag #{tag} already used. Choose another.",
+                    "Duplicate Tag", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Prepare next tag
             IncrementTag();
 
-            // Determine priority and apply express surcharge
+            // Priority & surcharge
             var priority = GetServicePriority();
-            Trace.TraceInformation($"[AddNewItem] Priority={priority}");
             if (priority == "Express")
             {
                 cost *= 1.15;
-                Trace.TraceInformation($"[AddNewItem] Surcharge applied → Cost={cost:F2}");
+                Trace.TraceInformation($"[Add] Express surcharge applied → {cost:F2}");
             }
 
-            // Construct and enqueue Drone
-            var drone = new Drone
+            // Construct and enqueue
+            var job = new Drone
             {
                 ClientName = txtClient.Text,
                 DroneModel = txtModel.Text,
                 ServiceProblem = txtProblem.Text,
-                Cost = cost,
-                ServiceTag = tag
+                Cost = Math.Round(cost, 2),
+                ServiceTag = tag,
+                Priority = priority
             };
 
-            if (priority == "Express")
-                ExpressService.Enqueue(drone);
-            else
-                RegularService.Enqueue(drone);
+            if (priority == "Express") ExpressService.Enqueue(job);
+            else RegularService.Enqueue(job);
 
-            Trace.TraceInformation(
-                $"[AddNewItem] Enqueued. RegularCount={RegularService.Count}, ExpressCount={ExpressService.Count}");
+            Trace.TraceInformation($"[Add] Enqueued #{tag} ({priority})");
 
-            // Refresh UI and clear inputs
             RefreshQueues();
             ClearForm();
-            txtStatus.Text = $"Job #{tag} enqueued to {priority}.";
+            txtStatus.Text = $"Job #{tag} added to {priority}.";
         }
 
         /// <summary>
-        /// Returns the selected priority radio button value.
-        ///                                             [Programming Criteria]
+        /// Updates the currently selected job’s fields.
         /// </summary>
+        private void UpdateSelectedJob_Click(object sender, RoutedEventArgs e)
+        {
+            Trace.TraceInformation("[Update] Invoked");
+
+            // Determine which queue and which job
+            Drone current = (tabQueues.SelectedIndex == 0
+                ? lvRegular.SelectedItem as Drone
+                : lvExpress.SelectedItem as Drone);
+
+            if (current == null) return;
+
+            // Apply edits
+            current.ClientName = txtClient.Text;
+            current.DroneModel = txtModel.Text;
+            current.ServiceProblem = txtProblem.Text;
+
+            if (double.TryParse(txtCost.Text, out double c) && c > 0)
+                current.Cost = Math.Round(c, 2);
+
+            current.Priority = GetServicePriority();
+            current.ServiceTag = numTag.Value ?? current.ServiceTag;
+
+            Trace.TraceInformation($"[Update] Updated #{current.ServiceTag}");
+
+            RefreshQueues();
+            txtStatus.Text = $"Job #{current.ServiceTag} updated.";
+        }
+
+        #endregion
+
+        #region Process Jobs
+
+        /// <summary>
+        /// Processes (dequeues) the selected Regular job.
+        /// </summary>
+        private void ProcessReg_Click(object sender, RoutedEventArgs e)
+        {
+            var d = lvRegular.SelectedItem as Drone;
+            if (d == null) return;
+
+            RegularService.Dequeue();
+            FinishedList.Add(d);
+            Trace.TraceInformation($"[ProcReg] Processed #{d.ServiceTag}");
+
+            RefreshQueues();
+            RefreshFinished();
+            txtStatus.Text = $"Processed Regular #{d.ServiceTag}.";
+        }
+
+        /// <summary>
+        /// Processes (dequeues) the selected Express job.
+        /// </summary>
+        private void ProcessExpr_Click(object sender, RoutedEventArgs e)
+        {
+            var d = lvExpress.SelectedItem as Drone;
+            if (d == null) return;
+
+            ExpressService.Dequeue();
+            FinishedList.Add(d);
+            Trace.TraceInformation($"[ProcExpr] Processed #{d.ServiceTag}");
+
+            RefreshQueues();
+            RefreshFinished();
+            txtStatus.Text = $"Processed Express #{d.ServiceTag}.";
+        }
+
+        #endregion
+
+        #region Refresh Displays
+
+        /// <summary>
+        /// Reloads the queue ListViews.
+        /// </summary>
+        private void RefreshQueues()
+        {
+            lvRegular.ItemsSource = RegularService.ToList();
+            lvExpress.ItemsSource = ExpressService.ToList();
+            UpdateProcessButtons();
+        }
+
+        /// <summary>
+        /// Reloads the Finished-Jobs ListView.
+        /// </summary>
+        private void RefreshFinished()
+        {
+            lvFinished.ItemsSource = FinishedList.ToList();
+        }
+
+        #endregion
+
+        #region Selection Handlers
+
+        /// <summary>
+        /// When you click a Regular item, populate the form.
+        /// </summary>
+        private void LvRegular_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvRegular.SelectedItem is Drone d)
+                PopulateForm(d);
+            UpdateProcessButtons();
+        }
+
+        /// <summary>
+        /// When you click an Express item, populate the form.
+        /// </summary>
+        private void LvExpress_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvExpress.SelectedItem is Drone d)
+                PopulateForm(d);
+            UpdateProcessButtons();
+        }
+
+        /// <summary>
+        /// Writes every field of a Drone into the input form.
+        /// </summary>
+        /// <param name="d">The selected Drone job.</param>
+        private void PopulateForm(Drone d)
+        {
+            txtClient.Text = d.ClientName;
+            txtModel.Text = d.DroneModel;
+            txtProblem.Text = d.ServiceProblem;
+            txtCost.Text = d.Cost.ToString("F2");
+            numTag.Value = d.ServiceTag;
+            rbRegular.IsChecked = d.Priority == "Regular";
+            rbExpress.IsChecked = d.Priority == "Express";
+        }
+
+        #endregion
+
+        #region Input Validation
+
+        /// <summary>
+        /// Ensures cost textbox only accepts up to two decimals.
+        /// </summary>
+        private void TxtCost_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (sender is not TextBox tb) return;
+            string all = tb.Text.Insert(tb.SelectionStart, e.Text);
+            e.Handled = !Regex.IsMatch(all, @"^\d*\.?\d{0,2}$");
+        }
+
+        #endregion
+
+        #region Utilities
+
+        /// <summary>
+        /// Reads which Priority radio is checked.
+        /// </summary>
+        /// <returns>"Regular" or "Express".</returns>
         private string GetServicePriority()
             => rbExpress.IsChecked == true ? "Express" : "Regular";
 
         /// <summary>
-        /// Increments the numeric ServiceTag by 10, wrapping at 900 → 100.
-        ///                                             [Programming Criteria]
+        /// Moves the numeric tag up by 10, wraps >900 → 100.
         /// </summary>
         private void IncrementTag()
         {
             int next = (numTag.Value ?? 100) + 10;
             if (next > 900) next = 100;
             numTag.Value = next;
-            Trace.TraceInformation($"[IncrementTag] NextTag={next}");
         }
 
         /// <summary>
-        /// Refreshes both Regular and Express ListViews and process buttons.
-        ///                                             [Programming Criteria]
+        /// Checks across all queues and finished list for a duplicate tag.
         /// </summary>
-        private void RefreshQueues()
-        {
-            lvRegular.ItemsSource = RegularService.ToList();
-            lvExpress.ItemsSource = ExpressService.ToList();
-            btnProcessReg.IsEnabled = RegularService.Count > 0;
-            btnProcessExpr.IsEnabled = ExpressService.Count > 0;
-        }
-
-        // ─── TEST CASE 4: PROCESS REGULAR ────────────────────────────────────────
+        /// <param name="tag">The tag to verify.</param>
+        /// <returns>True if already in use.</returns>
+        private bool IsTagDuplicate(int tag)
+            => RegularService.Any(x => x.ServiceTag == tag)
+            || ExpressService.Any(x => x.ServiceTag == tag)
+            || FinishedList.Any(x => x.ServiceTag == tag);
 
         /// <summary>
-        /// Dequeues from RegularService and adds to FinishedList.
-        ///                                             [Programming Criteria]
-        /// </summary>
-        private void ProcessReg_Click(object sender, RoutedEventArgs e)
-        {
-            if (RegularService.Count == 0) return;
-            var d = RegularService.Dequeue();
-            Trace.TraceInformation($"[ProcessReg] Dequeued Tag={d.ServiceTag}");
-            FinishedList.Add(d);
-            RefreshQueues();
-            RefreshFinished();
-            txtStatus.Text = $"Processed Regular job #{d.ServiceTag}.";
-        }
-
-        // ─── TEST CASE 5: PROCESS EXPRESS ────────────────────────────────────────
-
-        /// <summary>
-        /// Dequeues from ExpressService and adds to FinishedList.
-        ///                                             [Programming Criteria]
-        /// </summary>
-        private void ProcessExpr_Click(object sender, RoutedEventArgs e)
-        {
-            if (ExpressService.Count == 0) return;
-            var d = ExpressService.Dequeue();
-            Trace.TraceInformation($"[ProcessExpr] Dequeued Tag={d.ServiceTag}");
-            FinishedList.Add(d);
-            RefreshQueues();
-            RefreshFinished();
-            txtStatus.Text = $"Processed Express job #{d.ServiceTag}.";
-        }
-
-        /// <summary>
-        /// Updates the Finished ListBox from FinishedList.
-        ///                                             [Programming Criteria]
-        /// </summary>
-        private void RefreshFinished()
-        {
-            lbFinished.ItemsSource = FinishedList.Select(d => d.Display());
-        }
-
-        // ─── TEST CASE 6: REMOVE FINISHED ────────────────────────────────────────
-
-        /// <summary>
-        /// Double-click to remove a finished job from the list.
-        ///                                             [Programming Criteria]
-        /// </summary>
-        private void OnRemoveFinished(object sender, MouseButtonEventArgs e)
-        {
-            int idx = lbFinished.SelectedIndex;
-            if (idx < 0) return;
-            Trace.TraceWarning($"[OnRemoveFinished] Removing index={idx}");
-            if (MessageBox.Show("Remove this finished job?", "Confirm",
-                   MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
-                return;
-
-            FinishedList.RemoveAt(idx);
-            RefreshFinished();
-            txtStatus.Text = "Finished job removed.";
-        }
-
-        // ─── LISTVIEW SELECTION HANDLERS ─────────────────────────────────────────
-
-        /// <summary>
-        /// Populates form fields when selecting a Regular job.
-        ///                                             [Programming Criteria]
-        /// </summary>
-        private void LvRegular_SelectionChanged(object s, SelectionChangedEventArgs e)
-        {
-            if (lvRegular.SelectedItem is Drone d)
-            {
-                txtClient.Text = d.ClientName;
-                txtProblem.Text = d.ServiceProblem;
-                Trace.TraceInformation($"[LvRegular] Selected Tag={d.ServiceTag}");
-            }
-        }
-
-        /// <summary>
-        /// Populates form fields when selecting an Express job.
-        ///                                             [Programming Criteria]
-        /// </summary>
-        private void LvExpress_SelectionChanged(object s, SelectionChangedEventArgs e)
-        {
-            if (lvExpress.SelectedItem is Drone d)
-            {
-                txtClient.Text = d.ClientName;
-                txtProblem.Text = d.ServiceProblem;
-                Trace.TraceInformation($"[LvExpress] Selected Tag={d.ServiceTag}");
-            }
-        }
-
-        // ─── COST INPUT VALIDATION ──────────────────────────────────────────────
-
-        /// <summary>
-        /// Ensures cost textbox only accepts up to two decimal places.
-        ///                                             [Programming Criteria]
-        /// </summary>
-        private void TxtCost_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (sender is not TextBox tb) return;  // safe null check
-            string full = tb.Text.Insert(tb.SelectionStart, e.Text);
-            bool blocked = !Regex.IsMatch(full, @"^\d*\.?\d{0,2}$");
-            e.Handled = blocked;
-            Trace.TraceInformation($"[TxtCost] Input='{full}', Blocked={blocked}");
-        }
-
-        // ─── FORM RESET ─────────────────────────────────────────────────────────
-
-        /// <summary>
-        /// Clears all inputs and resets priority to Regular.
-        ///                                             [Programming Criteria]
+        /// Clears the form fields and resets priority & selection.
         /// </summary>
         private void ClearForm()
         {
@@ -297,13 +336,62 @@ namespace IcarusDroneServiceApp
             txtModel.Clear();
             txtCost.Clear();
             txtProblem.Clear();
+            numTag.Value = 100;
             rbRegular.IsChecked = true;
-            Trace.TraceInformation("[ClearForm] Inputs reset");
+            lvRegular.SelectedItem = null;
+            lvExpress.SelectedItem = null;
+            UpdateProcessButtons();
         }
 
+        #endregion
+
+        #region TabControl & Button Logic
+
+        /// <summary>
+        /// Fires whenever you switch tabs. Ensures the correct Process
+        /// button is active and that Update is enabled if anything is selected.
+        /// </summary>
         private void TabQueues_SelectionChanged(object sender, SelectionChangedEventArgs e)
+            => UpdateProcessButtons();
+
+        /// <summary>
+        /// Enables/disables the Process and Update buttons based on:
+        /// • Which tab is active
+        /// • Whether an item in that queue is selected
+        /// </summary>
+        private void UpdateProcessButtons()
         {
-            // no operation needed; columns already configured
+            bool onReg = (tabQueues.SelectedIndex == 0);
+            bool hasReg = (lvRegular.SelectedItem != null);
+            bool hasExpr = (lvExpress.SelectedItem != null);
+
+            btnProcessReg.IsEnabled = onReg && hasReg;
+            btnProcessExpr.IsEnabled = !onReg && hasExpr;
+            btnUpdate.IsEnabled = hasReg || hasExpr;
         }
+
+        #endregion
+
+        #region Finished Removal
+
+        /// <summary>
+        /// Double‐click to remove a finished job after confirmation.
+        /// </summary>
+        private void OnRemoveFinished(object sender, MouseButtonEventArgs e)
+        {
+            if (lvFinished.SelectedItem is not Drone) return;
+
+            if (MessageBox.Show(
+                "Remove this finished job?",
+                "Confirm",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+
+            FinishedList.RemoveAt(lvFinished.SelectedIndex);
+            RefreshFinished();
+            txtStatus.Text = "Finished job removed.";
+        }
+
+        #endregion
     }
 }

@@ -9,7 +9,7 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Left panel -->
+        <!-- Left panel: job entry -->
         <StackPanel Grid.Column="0" Margin="0,0,8,0">
             <TextBlock Text="New Job" FontSize="16" FontWeight="Bold" Margin="0,0,0,8"/>
             <TextBlock Text="Client Name"/>
@@ -42,14 +42,23 @@
                AcceptsReturn="True" Height="60"
                Margin="0,2,0,8"/>
 
-            <Button x:Name="btnAdd"
-              Content="Add New Item"
-              Click="AddNewItem"
-              Padding="6,4"
-              HorizontalAlignment="Left"/>
+            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                <Button x:Name="btnAdd"
+                  Content="Add New Item"
+                  Click="AddNewItem"
+                  Padding="6,4"
+                  Width="120"/>
+                <Button x:Name="btnUpdate"
+                  Content="Update Selected Job"
+                  Click="UpdateSelectedJob_Click"
+                  Padding="6,4"
+                  Width="140"
+                  Margin="8,0,0,0"
+                  IsEnabled="False"/>
+            </StackPanel>
         </StackPanel>
 
-        <!-- Right panel -->
+        <!-- Right panel: queues + finished -->
         <DockPanel Grid.Column="1">
             <TabControl x:Name="tabQueues"
                   DockPanel.Dock="Top"
@@ -72,17 +81,21 @@
                 Content="Process Regular"
                 Click="ProcessReg_Click"
                 Padding="6,4"
-                Margin="0,0,8,0"/>
+                Width="120"
+                IsEnabled="False"/>
                 <Button x:Name="btnProcessExpr"
                 Content="Process Express"
                 Click="ProcessExpr_Click"
-                Padding="6,4"/>
+                Padding="6,4"
+                Width="120"
+                Margin="8,0,0,0"
+                IsEnabled="False"/>
             </StackPanel>
 
             <TextBlock Text="Finished Jobs"
                  FontWeight="Bold"
                  Margin="0,8,0,4"/>
-            <ListBox x:Name="lbFinished"
+            <ListView x:Name="lvFinished"
                MouseDoubleClick="OnRemoveFinished"/>
         </DockPanel>
 
