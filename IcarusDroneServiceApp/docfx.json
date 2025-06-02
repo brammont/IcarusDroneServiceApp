@@ -1,0 +1,51 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+
+  //───────────────────────────────────────────────────────────────
+  // 1) Metadata: point docfx at your .csproj inside the IcarusDroneServiceApp folder
+  "metadata": [
+    {
+      "src": [
+        {
+          "cwd": "IcarusDroneServiceApp",  
+          "files": [ "IcarusDroneServiceApp.csproj" ]
+        }
+      ],
+      "dest": "api",
+      "properties": {
+        "TargetFramework": "net8.0-windows"
+      }
+    }
+  ],
+
+  //───────────────────────────────────────────────────────────────
+  // 2) Build: include any Markdown/YAML plus the generated API YAML
+  "build": {
+    "content": [
+      {
+        // All .md and .yml in your docs folder (and root)  
+        "files": [ "**/*.{md,yml}" ],
+        "exclude": [ "_site/**",
+                     "IcarusDroneServiceApp/**/bin/**",
+                     "IcarusDroneServiceApp/**/obj/**" ]
+      },
+      {
+        // This explicitly pulls in the API *.yml files that 'docfx metadata' generated
+        "files": [ "api/**.yml", "api/index.yml" ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [ "docs/images/**" ]
+      }
+    ],
+    "dest": "_site",
+    "template": [ "default", "modern" ],
+    "globalMetadata": {
+      "_appName": "Icarus Drone Service",
+      "_appTitle": "Icarus Drone Service Documentation",
+      "_enableSearch": true,
+      "pdf": true
+    }
+  }
+}

@@ -2,108 +2,155 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="Icarus Drone Service" Height="520" Width="920">
+        Title="Icarus Drone Service" Height="550" Width="960">
     <Grid Margin="8">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Left panel: job entry -->
+        <!-- ═══════════ Left Panel: New Job Entry ═══════════ -->
         <StackPanel Grid.Column="0" Margin="0,0,8,0">
-            <TextBlock Text="New Job" FontSize="16" FontWeight="Bold" Margin="0,0,0,8"/>
-            <TextBlock Text="Client Name"/>
-            <TextBox x:Name="txtClient" Margin="0,2,0,8"/>
+            <TextBlock Text="New Job" FontSize="18" FontWeight="Bold" Margin="0,0,0,12"/>
 
-            <TextBlock Text="Drone Model"/>
-            <TextBox x:Name="txtModel" Margin="0,2,0,8"/>
+            <!-- Client Name -->
+            <TextBlock Text="Client Name" />
+            <TextBox x:Name="txtClient" Margin="0,2,0,12"/>
 
-            <TextBlock Text="Service Tag"/>
+            <!-- Drone Model -->
+            <TextBlock Text="Drone Model" />
+            <TextBox x:Name="txtModel" Margin="0,2,0,12"/>
+
+            <!-- Service Tag (Auto-increment control) -->
+            <TextBlock Text="Service Tag" />
             <xctk:IntegerUpDown x:Name="numTag"
-                         Minimum="100" Maximum="900" Increment="10" Value="100"
-                         Margin="0,2,0,8"/>
+                                Minimum="100"
+                                Maximum="900"
+                                Increment="10"
+                                Value="100"
+                                Margin="0,2,0,12"/>
 
-            <TextBlock Text="Priority"/>
-            <StackPanel Orientation="Horizontal" Margin="0,2,0,8">
-                <RadioButton x:Name="rbRegular" GroupName="Priority"
-                     Content="Regular" IsChecked="True"
-                     Margin="0,0,16,0"/>
-                <RadioButton x:Name="rbExpress" GroupName="Priority"
-                     Content="Express"/>
+            <!-- Priority: Regular or Express -->
+            <TextBlock Text="Priority" />
+            <StackPanel Orientation="Horizontal" Margin="0,2,0,12">
+                <RadioButton x:Name="rbRegular"
+                             GroupName="Priority"
+                             Content="Regular"
+                             IsChecked="True"
+                             Margin="0,0,20,0"/>
+                <RadioButton x:Name="rbExpress"
+                             GroupName="Priority"
+                             Content="Express"/>
             </StackPanel>
 
-            <TextBlock Text="Cost"/>
+            <!-- Cost -->
+            <TextBlock Text="Cost" />
             <TextBox x:Name="txtCost"
-               PreviewTextInput="TxtCost_PreviewTextInput"
-               Margin="0,2,0,8"/>
+                     PreviewTextInput="TxtCost_PreviewTextInput"
+                     Margin="0,2,0,12"/>
 
-            <TextBlock Text="Problem Description"/>
+            <!-- Service Problem (multi-line) -->
+            <TextBlock Text="Problem Description" />
             <TextBox x:Name="txtProblem"
-               AcceptsReturn="True" Height="60"
-               Margin="0,2,0,8"/>
+                     AcceptsReturn="True"
+                     Height="60"
+                     Margin="0,2,0,20"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+            <!-- Buttons: Add New / Update Selected -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <Button x:Name="btnAdd"
-                  Content="Add New Item"
-                  Click="AddNewItem"
-                  Padding="6,4"
-                  Width="120"/>
+                        Content="Add New Item"
+                        Click="AddNewItem"
+                        Padding="8,6"
+                        Width="100"/>
                 <Button x:Name="btnUpdate"
-                  Content="Update Selected Job"
-                  Click="UpdateSelectedJob_Click"
-                  Padding="6,4"
-                  Width="140"
-                  Margin="8,0,0,0"
-                  IsEnabled="False"/>
+                        Content="Update Selected Job"
+                        Click="UpdateSelectedJob_Click"
+                        Padding="8,6"
+                        Width="140"
+                        Margin="12,0,0,0"
+                        IsEnabled="False"/>
             </StackPanel>
         </StackPanel>
 
-        <!-- Right panel: queues + finished -->
+
+        <!-- ═══════════ Right Panel: Queues & Finished ═══════════ -->
         <DockPanel Grid.Column="1">
+
+            <!-- TabControl for Regular/Express queues -->
             <TabControl x:Name="tabQueues"
-                  DockPanel.Dock="Top"
-                  Margin="0,0,0,8"
-                  SelectionChanged="TabQueues_SelectionChanged">
+                        DockPanel.Dock="Top"
+                        Margin="0,0,0,12"
+                        SelectionChanged="TabQueues_SelectionChanged">
+
+                <!-- Regular Tab -->
                 <TabItem Header="Regular">
-                    <ListView x:Name="lvRegular"
-                    SelectionChanged="LvRegular_SelectionChanged"/>
+                    <Grid>
+                        <ListView x:Name="lvRegular"
+                                  SelectionChanged="LvRegular_SelectionChanged"
+                                  Margin="0,0,0,40">
+                            <!-- Columns are set in code-behind -->
+                        </ListView>
+                        <Button x:Name="btnProcessReg"
+                                Content="Process Regular"
+                                Click="ProcessReg_Click"
+                                Padding="8,6"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                IsEnabled="False"/>
+                    </Grid>
                 </TabItem>
+
+                <!-- Express Tab -->
                 <TabItem Header="Express">
-                    <ListView x:Name="lvExpress"
-                    SelectionChanged="LvExpress_SelectionChanged"/>
+                    <Grid>
+                        <ListView x:Name="lvExpress"
+                                  SelectionChanged="LvExpress_SelectionChanged"
+                                  Margin="0,0,0,40">
+                            <!-- Columns are set in code-behind -->
+                        </ListView>
+                        <Button x:Name="btnProcessExpr"
+                                Content="Process Express"
+                                Click="ProcessExpr_Click"
+                                Padding="8,6"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                IsEnabled="False"/>
+                    </Grid>
                 </TabItem>
+
             </TabControl>
 
-            <StackPanel Orientation="Horizontal"
-                  DockPanel.Dock="Top"
-                  Margin="0,0,0,8">
-                <Button x:Name="btnProcessReg"
-                Content="Process Regular"
-                Click="ProcessReg_Click"
-                Padding="6,4"
-                Width="120"
-                IsEnabled="False"/>
-                <Button x:Name="btnProcessExpr"
-                Content="Process Express"
-                Click="ProcessExpr_Click"
-                Padding="6,4"
-                Width="120"
-                Margin="8,0,0,0"
-                IsEnabled="False"/>
-            </StackPanel>
-
+            <!-- Finished Jobs Section -->
             <TextBlock Text="Finished Jobs"
-                 FontWeight="Bold"
-                 Margin="0,8,0,4"/>
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Margin="0,0,0,8"/>
+
+            <!-- Finished Jobs ListView with its own columns -->
             <ListView x:Name="lvFinished"
-               MouseDoubleClick="OnRemoveFinished"/>
+                      MouseDoubleClick="OnRemoveFinished">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tag"    DisplayMemberBinding="{Binding Tag}"    Width="60"/>
+                        <GridViewColumn Header="Client" DisplayMemberBinding="{Binding Client}" Width="120"/>
+                        <GridViewColumn Header="Cost"   DisplayMemberBinding="{Binding Cost}"   Width="80"/>
+                        <GridViewColumn Header="Type"   DisplayMemberBinding="{Binding Type}"   Width="80"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
         </DockPanel>
 
-        <!-- Status Bar -->
-        <StatusBar VerticalAlignment="Bottom" Height="24" Margin="0,8,0,0">
+
+        <!-- ═══════════ Status Bar ═══════════ -->
+        <StatusBar VerticalAlignment="Bottom" Height="28" Margin="0,12,0,0">
             <StatusBarItem>
-                <TextBlock x:Name="txtStatus" Text="Ready"/>
+                <TextBlock x:Name="txtStatus"
+                           Text="Ready"
+                           Padding="6,0"/>
             </StatusBarItem>
         </StatusBar>
+
     </Grid>
 </Window>

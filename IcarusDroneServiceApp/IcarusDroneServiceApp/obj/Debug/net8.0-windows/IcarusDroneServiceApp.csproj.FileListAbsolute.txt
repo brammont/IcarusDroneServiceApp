@@ -37,3 +37,5 @@ C:\Users\mazue\Documents\localdDev\IcarusDroneServiceApp\IcarusDroneServiceApp\I
 C:\Users\mazue\Documents\localdDev\IcarusDroneServiceApp\IcarusDroneServiceApp\IcarusDroneServiceApp\obj\Debug\net8.0-windows\IcarusDroneServiceApp.pdb
 C:\Users\mazue\Documents\localdDev\IcarusDroneServiceApp\IcarusDroneServiceApp\IcarusDroneServiceApp\obj\Debug\net8.0-windows\IcarusDroneServiceApp.genruntimeconfig.cache
 C:\Users\mazue\Documents\localdDev\IcarusDroneServiceApp\IcarusDroneServiceApp\IcarusDroneServiceApp\obj\Debug\net8.0-windows\ref\IcarusDroneServiceApp.dll
+C:\Users\mazue\Documents\localdDev\IcarusDroneServiceApp\IcarusDroneServiceApp\IcarusDroneServiceApp\bin\Debug\net8.0-windows\IcarusDroneServiceApp.xml
+C:\Users\mazue\Documents\localdDev\IcarusDroneServiceApp\IcarusDroneServiceApp\IcarusDroneServiceApp\obj\Debug\net8.0-windows\IcarusDroneServiceApp.xml
