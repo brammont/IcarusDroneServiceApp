@@ -1,29 +1,34 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 
 namespace IcarusDroneServiceApp
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            // 1) Write traces to VS Output and to trace.log
-            Trace.Listeners.Add(new DefaultTraceListener());
-            Trace.Listeners.Add(new TextWriterTraceListener("trace.log"));
-            Trace.AutoFlush = true;
+            // Choose a folder under %LOCALAPPDATA% where the user always has write access
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string logFolder = Path.Combine(appDataFolder, "IcarusDroneServiceApp", "Logs");
+            Directory.CreateDirectory(logFolder);  // ensure the folder exists
 
-            Trace.TraceInformation("=== Application starting ===");
+            string tracePath = Path.Combine(logFolder, "trace.log");
+
+            // Redirect Trace output to our own file
+            Trace.Listeners.Clear();
+            Trace.Listeners.Add(new TextWriterTraceListener(tracePath));
+            Trace.AutoFlush = true;
+            Trace.TraceInformation("=== Icarus Drone Service starting ===");
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Trace.TraceInformation("=== Application exiting ===");
+            Trace.TraceInformation("=== Icarus Drone Service exiting ===");
+            Trace.Close();
             base.OnExit(e);
         }
     }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IcarusDroneServiceApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a7ce5cccb0e74eede421d3822173667363c89dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7206faf3b8f95a8ad8ef41ebbb3dbae35f4f1964")]
 [assembly: System.Reflection.AssemblyProductAttribute("IcarusDroneServiceApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IcarusDroneServiceApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

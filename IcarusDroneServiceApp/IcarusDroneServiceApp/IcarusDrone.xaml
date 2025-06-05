@@ -2,95 +2,112 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="Icarus Drone Service" Height="550" Width="960">
+        Title="Icarus Drone Service"
+        Height="550"
+        Width="960">
+
+    <!-- ───── 1️⃣  Global ListView-item style (blue highlight on select) ───── -->
+    <Window.Resources>
+        <Style x:Key="QueueItemStyle" TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FFCCE5FF"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- ═══════════ Left Panel: New Job Entry ═══════════ -->
-        <StackPanel Grid.Column="0" Margin="0,0,8,0">
-            <TextBlock Text="New Job" FontSize="18" FontWeight="Bold" Margin="0,0,0,12"/>
+        <!-- ═══════════  LEFT PANEL : New-Job form  ═══════════ -->
+        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+            <TextBlock Text="New Job"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Margin="0 0 0 12"/>
 
-            <!-- Client Name -->
-            <TextBlock Text="Client Name" />
-            <TextBox x:Name="txtClient" Margin="0,2,0,12"/>
+            <!-- Client -->
+            <TextBlock Text="Client Name"/>
+            <TextBox x:Name="txtClient" Margin="0 2 0 12"/>
 
-            <!-- Drone Model -->
-            <TextBlock Text="Drone Model" />
-            <TextBox x:Name="txtModel" Margin="0,2,0,12"/>
+            <!-- Drone model -->
+            <TextBlock Text="Drone Model"/>
+            <TextBox x:Name="txtModel" Margin="0 2 0 12"/>
 
-            <!-- Service Tag (Auto-increment control) -->
-            <TextBlock Text="Service Tag" />
+            <!-- Tag (IntegerUpDown) -->
+            <TextBlock Text="Service Tag"/>
             <xctk:IntegerUpDown x:Name="numTag"
                                 Minimum="100"
                                 Maximum="900"
                                 Increment="10"
                                 Value="100"
-                                Margin="0,2,0,12"/>
+                                Margin="0 2 0 12"/>
 
-            <!-- Priority: Regular or Express -->
-            <TextBlock Text="Priority" />
-            <StackPanel Orientation="Horizontal" Margin="0,2,0,12">
+            <!-- Priority -->
+            <TextBlock Text="Priority"/>
+            <StackPanel Orientation="Horizontal" Margin="0 2 0 12">
                 <RadioButton x:Name="rbRegular"
-                             GroupName="Priority"
                              Content="Regular"
                              IsChecked="True"
-                             Margin="0,0,20,0"/>
+                             GroupName="prio"
+                             Margin="0 0 20 0"/>
                 <RadioButton x:Name="rbExpress"
-                             GroupName="Priority"
-                             Content="Express"/>
+                             Content="Express"
+                             GroupName="prio"/>
             </StackPanel>
 
             <!-- Cost -->
-            <TextBlock Text="Cost" />
+            <TextBlock Text="Cost"/>
             <TextBox x:Name="txtCost"
                      PreviewTextInput="TxtCost_PreviewTextInput"
-                     Margin="0,2,0,12"/>
+                     Margin="0 2 0 12"/>
 
-            <!-- Service Problem (multi-line) -->
-            <TextBlock Text="Problem Description" />
+            <!-- Problem -->
+            <TextBlock Text="Problem Description"/>
             <TextBox x:Name="txtProblem"
                      AcceptsReturn="True"
                      Height="60"
-                     Margin="0,2,0,20"/>
+                     Margin="0 2 0 20"/>
 
-            <!-- Buttons: Add New / Update Selected -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnAdd"
-                        Content="Add New Item"
-                        Click="AddNewItem"
+                        Width="100"
                         Padding="8,6"
-                        Width="100"/>
+                        Content="Add New Item"
+                        Click="AddNewItem"/>
                 <Button x:Name="btnUpdate"
+                        Width="140"
+                        Margin="12 0 0 0"
+                        Padding="8,6"
                         Content="Update Selected Job"
                         Click="UpdateSelectedJob_Click"
-                        Padding="8,6"
-                        Width="140"
-                        Margin="12,0,0,0"
                         IsEnabled="False"/>
             </StackPanel>
         </StackPanel>
 
-
-        <!-- ═══════════ Right Panel: Queues & Finished ═══════════ -->
+        <!-- ═══════════  RIGHT PANEL : Queues & Finished  ═══════════ -->
         <DockPanel Grid.Column="1">
 
-            <!-- TabControl for Regular/Express queues -->
+            <!-- Queue tabs -->
             <TabControl x:Name="tabQueues"
                         DockPanel.Dock="Top"
-                        Margin="0,0,0,12"
+                        Margin="0 0 0 12"
                         SelectionChanged="TabQueues_SelectionChanged">
 
-                <!-- Regular Tab -->
+                <!-- Regular tab -->
                 <TabItem Header="Regular">
                     <Grid>
                         <ListView x:Name="lvRegular"
+                                  ItemContainerStyle="{StaticResource QueueItemStyle}"
                                   SelectionChanged="LvRegular_SelectionChanged"
-                                  Margin="0,0,0,40">
-                            <!-- Columns are set in code-behind -->
-                        </ListView>
+                                  Margin="0 0 0 40"/>
                         <Button x:Name="btnProcessReg"
                                 Content="Process Regular"
                                 Click="ProcessReg_Click"
@@ -101,14 +118,13 @@
                     </Grid>
                 </TabItem>
 
-                <!-- Express Tab -->
+                <!-- Express tab -->
                 <TabItem Header="Express">
                     <Grid>
                         <ListView x:Name="lvExpress"
+                                  ItemContainerStyle="{StaticResource QueueItemStyle}"
                                   SelectionChanged="LvExpress_SelectionChanged"
-                                  Margin="0,0,0,40">
-                            <!-- Columns are set in code-behind -->
-                        </ListView>
+                                  Margin="0 0 0 40"/>
                         <Button x:Name="btnProcessExpr"
                                 Content="Process Express"
                                 Click="ProcessExpr_Click"
@@ -118,39 +134,33 @@
                                 IsEnabled="False"/>
                     </Grid>
                 </TabItem>
-
             </TabControl>
 
-            <!-- Finished Jobs Section -->
+            <!-- Finished jobs -->
             <TextBlock Text="Finished Jobs"
                        FontSize="16"
                        FontWeight="Bold"
-                       Margin="0,0,0,8"/>
+                       Margin="0 0 0 8"/>
 
-            <!-- Finished Jobs ListView with its own columns -->
             <ListView x:Name="lvFinished"
+                      ItemContainerStyle="{StaticResource QueueItemStyle}"
                       MouseDoubleClick="OnRemoveFinished">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Tag"    DisplayMemberBinding="{Binding Tag}"    Width="60"/>
-                        <GridViewColumn Header="Client" DisplayMemberBinding="{Binding Client}" Width="120"/>
-                        <GridViewColumn Header="Cost"   DisplayMemberBinding="{Binding Cost}"   Width="80"/>
-                        <GridViewColumn Header="Type"   DisplayMemberBinding="{Binding Type}"   Width="80"/>
+                        <GridViewColumn Header="Tag"    Width="60"  DisplayMemberBinding="{Binding Tag}"/>
+                        <GridViewColumn Header="Client" Width="120" DisplayMemberBinding="{Binding Client}"/>
+                        <GridViewColumn Header="Cost"   Width="80"  DisplayMemberBinding="{Binding Cost}"/>
+                        <GridViewColumn Header="Type"   Width="80"  DisplayMemberBinding="{Binding Type}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-
         </DockPanel>
 
-
-        <!-- ═══════════ Status Bar ═══════════ -->
-        <StatusBar VerticalAlignment="Bottom" Height="28" Margin="0,12,0,0">
+        <!-- Status bar -->
+        <StatusBar VerticalAlignment="Bottom" Height="28" Margin="0 12 0 0">
             <StatusBarItem>
-                <TextBlock x:Name="txtStatus"
-                           Text="Ready"
-                           Padding="6,0"/>
+                <TextBlock x:Name="txtStatus" Padding="6,0" Text="Ready"/>
             </StatusBarItem>
         </StatusBar>
-
     </Grid>
 </Window>
