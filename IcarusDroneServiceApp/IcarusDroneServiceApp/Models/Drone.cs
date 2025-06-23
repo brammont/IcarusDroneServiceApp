@@ -20,10 +20,7 @@ namespace IcarusDroneServiceApp.Models
         public string ClientName
         {
             get => clientName;
-            set => clientName = CultureInfo
-                .CurrentCulture
-                .TextInfo
-                .ToTitleCase(value?.Trim() ?? string.Empty);
+            set => clientName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value?.Trim() ?? string.Empty);
         }
 
         /// <summary>
@@ -50,7 +47,7 @@ namespace IcarusDroneServiceApp.Models
         }
 
         /// <summary>
-        /// Gets or sets the service cost. Always stored as a positive double.
+        /// Gets or sets the service cost.
         /// </summary>
         public double Cost
         {
@@ -81,9 +78,8 @@ namespace IcarusDroneServiceApp.Models
         }
 
         /// <summary>
-        /// Returns a display string combining tag, priority, client and cost.
+        /// Returns a formatted string for display.
         /// </summary>
-        /// <returns>Formatted string like "#100 [Express] Acme Corp – $115.00".</returns>
         public string Display()
             => $"#{ServiceTag} [{Priority}] {ClientName} – ${Cost:F2}";
     }
